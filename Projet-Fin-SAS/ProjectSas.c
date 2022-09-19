@@ -121,9 +121,14 @@ void AjouterUnProduit(){
   system("cls");
   printf("\n------- Ajouter un nouveau produit (Code, Nom, Quantite et le Prix.) -------\n\n");
   printf("Donnez les informations du produit %d.\n\n", nbProduit + 1);
-
+  ther :
   printf("Entrez le Code     : ");
   scanf("%s", produit[nbProduit].Code);
+  int x = check_code(produit[nbProduit].Code);
+    if( x == 1){
+        printf(" the product is already ther !\n");
+        goto ther;
+    }
 
   printf("Entrez le Nom      : ");
   scanf("%s", produit[nbProduit].Nom);
@@ -165,6 +170,7 @@ void AjouterPlusieursProduit(){
 
     printf("Entrez le Code     : ");
     scanf("%s", produit[nbProduit].Code);
+    
 
     printf("Entrez le Nom      : ");
     scanf("%s", produit[nbProduit].Nom);
@@ -200,7 +206,7 @@ void recherche_par_code(){
      ther :
      printf("Veuilez saisir le Code du produit : ");
      scanf("%s", produit_code); 
-     int x = chech_code(produit_code);
+     int x = check_code(produit_code);
     if( x == 0){
         goto ther;
     }
@@ -235,7 +241,7 @@ void recherche_par_quantite(){
      ther :
      printf("Veuilez saisir le quantite du produit : ");
      scanf("%d", &produit_quantite);
-     int x = chech_Quantite(produit_quantite);
+     int x = check_Quantite(produit_quantite);
      if( x == 0){
         goto ther;
      }
@@ -320,7 +326,6 @@ void Liste_par_nom(){
       printf("  -Prix TTC        : %.2f MAD\n", prix_TTC);
       printf("\n");
 
-    //  printf("\n--> Nom de Produit : %s.\n  - Prix      :  %.2f MAD.\n  - Prix TTC : %.2f MAD.\n\n",produit[i].Nom, produit[i].Prix, prix_TTC);
      }
   return_or_exit();
 
@@ -352,7 +357,6 @@ void Liste_par_prix(){
       printf("  -Prix TTC        : %.2f MAD\n", prix_TTC);
       printf("\n");
 
-    //  printf("\n--> Nom de Produit : %s.\n  - Prix      :  %.2f MAD.\n  - Prix TTC : %.2f MAD.\n\n",produit[i].Nom, produit[i].Prix, prix_TTC);
      }
   return_or_exit();
 }
@@ -469,7 +473,7 @@ void Alimenter_stock(){
 
 //------------------------------------- chech code ------------------------------------------
 
-int chech_code(char x[10]){
+int check_code(char x[10]){
     int k=0;
   for (int i = 0; i < nbProduit; i++)
   {
@@ -487,7 +491,7 @@ int chech_code(char x[10]){
 
 //---------------------------------- chech Quantite -----------------------------------------
 
-int chech_Quantite(int x){
+int check_Quantite(int x){
     int k=0;
   for (int i = 0; i < nbProduit; i++)
   {
