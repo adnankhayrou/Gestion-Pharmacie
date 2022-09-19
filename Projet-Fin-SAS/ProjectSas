@@ -1,0 +1,112 @@
+#include <stdio.h>
+// #include <stdlib.h>
+#include <time.h>
+#include <string.h>
+// #include <windows.h>
+
+//--------------------------- CREATION DE LA STRUCTURE --------------------------------
+
+struct Produit{
+
+  char Nom[20];
+  char Code[20];
+  int Quantite;
+  float Prix;
+
+};
+
+//------------------------------- BASE DE DONNEES --------------------------------------
+
+ struct Produit produit[100];
+//  ={
+//   {"jt1111", "dolipran", 5, 100},
+//   {"jt2222", "pirnabol", 6, 200},
+//  };
+
+ int nbProduit = 0;
+
+//--------------------------- DECLARATION DES FONCTIONS --------------------------------
+
+void AjouterUnProduit();
+void AjouterPlusieursProduit();
+void return_or_exit();
+void recherche_par_code();
+void recherche_par_quantite();
+void Acheter_produit();
+void Listetousproduits();
+void Liste_par_nom();
+void Liste_par_prix();
+void affichage();
+void Etat_du_stock();
+
+//-------------------------------- MAIN FUNCTION ---------------------------------------
+
+int main() {
+
+  int choix;
+  do
+  {
+    system("cls");
+    printf("\n---------------------Bonjour---------------------\n\n");
+    ther:
+    printf("-> Tapez 1 pour Ajouter un nouveau produit.\n");
+    printf("-> Tapez 2 Pour Ajouter plusieurs nouveaux produits.\n");
+    printf("-> Tapez 3 Pour Afficher les produits.\n");
+    printf("-> Tapez 4 Pour Acheter un produit.\n");
+    printf("-> Tapez 5 Pour Quitter.\n\n");
+    printf("======> Votre chois : ");
+    scanf("%d",&choix);
+
+    switch (choix)
+    {
+      case 1:
+        AjouterUnProduit();
+        break;
+      case 2:
+        AjouterPlusieursProduit();
+        break;
+      case 3:
+        affichage();
+        break;
+      case 4:
+        Acheter_produit();
+        break;
+      case 5:
+        exit(0);
+        break;
+      default:
+        system("cls");
+        printf(" votre choix n'est pas valide, veuillez reessayer. \n\n");
+        sleep(2);
+        goto ther;
+        break;
+    }
+  } while (choix < 1 || choix > 4 );
+
+  return 0;
+}
+
+//--------------------------- DEfINITION DES FONCTIONS --------------------------------
+
+//------------------------------- RETURN OR EXIT --------------------------------------
+
+void return_or_exit(){
+
+  int choix;
+
+do {
+    ther:
+    printf("\n-> Tapez 1 Pour retourner au menu principale");
+    printf("\n-> Tapez 2 Pour quitter\n");
+    printf("\n=====>Votre choix : ");
+    scanf("%d",&choix);
+    switch(choix)
+    {
+        case 1 : main(); break;
+        case 2 : exit(0); break;
+        default : printf(" votre choix n'est pas valide. veuillez reessayer. ");
+        goto ther;
+    }
+    } while (choix < 1 || choix > 2 );
+
+}
