@@ -5,6 +5,7 @@ void echanger(int, int);
 
 int main(){
 int N1, N2;
+system("cls");
 printf("entree nombe N1 et N2 : ");
 scanf("%d %d", &N1, &N2);
 
