@@ -1,8 +1,7 @@
 #include <stdio.h>
-// #include <stdlib.h>
+#include <stdlib.h>
 #include <time.h>
 #include <string.h>
-// #include <windows.h>
 
 //--------------------------- CREATION DE LA STRUCTURE --------------------------------
 
@@ -17,13 +16,14 @@ struct Produit{
 
 //------------------------------- BASE DE DONNEES --------------------------------------
 
- struct Produit produit[100];
-//  ={
-//   {"jt1111", "dolipran", 5, 100},
-//   {"jt2222", "pirnabol", 6, 200},
-//  };
+ struct Produit produit[100]={
+  {"dolipran", "g1", 56, 15},
+  {"cataflam", "g2", 64, 150},
+  {"pirnabol", "g3", 2, 83},
+  {"aspirine", "g4", 1, 28}
+ };
 
- int nbProduit = 0;
+ int nbProduit = 4;
 
 //--------------------------- DECLARATION DES FONCTIONS --------------------------------
 
@@ -39,6 +39,8 @@ void Liste_par_prix();
 void affichage();
 void Etat_du_stock();
 void Alimenter_stock();
+int chech_code(char x[10]);
+int chech_Quantite(int x);
 
 //-------------------------------- MAIN FUNCTION ---------------------------------------
 
@@ -192,12 +194,16 @@ void AjouterPlusieursProduit(){
 //----------------------------- RECHERCHE PAR CODE ------------------------------------
 
 void recherche_par_code(){
-     char produit_code[10];
-
-     system("cls");
+ char produit_code[10];
+    system("cls");
      printf("\n\n");
+     ther :
      printf("Veuilez saisir le Code du produit : ");
-     scanf("%s", produit_code);
+     scanf("%s", produit_code); 
+     int x = chech_code(produit_code);
+    if( x == 0){
+        goto ther;
+    }
      
      printf("\n\n");
 
@@ -226,9 +232,13 @@ void recherche_par_quantite(){
 
      system("cls");
      printf("\n\n");
+     ther :
      printf("Veuilez saisir le quantite du produit : ");
      scanf("%d", &produit_quantite);
-     
+     int x = chech_Quantite(produit_quantite);
+     if( x == 0){
+        goto ther;
+     }
      printf("\n\n");
 
      for (int i = 0; i < nbProduit; i++)
@@ -369,14 +379,17 @@ void  Etat_du_stock(){
 //--------------------------------- Acheter un produit --------------------------------------
 
 void Acheter_produit(){
-char produit_code[10];
-int quantite_ach;
+ char produit_code[10];
+ int quantite_ach;
      system("cls");
      printf("\n\n");
-
+     ther:
      printf("Veuilez saisir le Code du produit : ");
      scanf("%s", produit_code);
-
+     int x = chech_code(produit_code);
+     if( x == 0){
+        goto ther;
+     }
      printf("\n");
      printf("Veuillez saisir le Quantite a acheter : ");
      scanf("%d", &quantite_ach);
@@ -410,10 +423,13 @@ void Alimenter_stock(){
  int quantite_ach;
      system("cls");
      printf("\n\n");
-
+     ther :
      printf("Veuilez saisir le Code du produit : ");
      scanf("%s", produit_code);
-
+     int x = chech_code(produit_code);
+     if( x == 0){
+        goto ther;
+     }
      printf("\n");
      printf("Veuillez saisir le Quantite vous ajouter : ");
      scanf("%d", &quantite_ach);
@@ -450,6 +466,42 @@ void Alimenter_stock(){
 //void Statistique_de_vente(){
 
 //}
+
+//------------------------------------- chech code ------------------------------------------
+
+int chech_code(char x[10]){
+    int k=0;
+  for (int i = 0; i < nbProduit; i++)
+  {
+    if (strcmp(produit[i].Code, x) == 0)
+    {
+        k=1;
+        return 1;
+    }
+    
+  }
+  if(k==0){
+    return 0;
+  }
+}
+
+//---------------------------------- chech Quantite -----------------------------------------
+
+int chech_Quantite(int x){
+    int k=0;
+  for (int i = 0; i < nbProduit; i++)
+  {
+    if (produit[i].Quantite == x)
+    {
+        k=1;
+        return 1;
+    }
+    
+  }
+  if(k==0){
+    return 0;
+  }
+}
 
 //------------------------------------ AFFICHAGE --------------------------------------------
 
