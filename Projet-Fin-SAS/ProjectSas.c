@@ -96,8 +96,8 @@ void return_or_exit(){
 
   int choix;
 
- do {
-    ther:
+   do {
+    // ther:
     printf("\n-> Tapez 1 Pour retourner au menu principale");
     printf("\n-> Tapez 2 Pour quitter\n");
     printf("\n=====>Votre choix : ");
@@ -106,8 +106,8 @@ void return_or_exit(){
     {
         case 1 : main(); break;
         case 2 : exit(0); break;
-        default : printf(" votre choix n'est pas valide. veuillez reessayer. ");
-        goto ther;
+        default : printf(" votre choix n'est pas valide. veuillez reessayer. \n");
+        // goto ther;
     }
     } while (choix < 1 || choix > 2 );
 
@@ -243,6 +243,7 @@ void recherche_par_quantite(){
      scanf("%d", &produit_quantite);
      int x = check_Quantite(produit_quantite);
      if( x == 0){
+        printf(" la Quantite que vous avez entree n'est existe pas, veuillez reessayer.\n");
         goto ther;
      }
      printf("\n\n");
@@ -409,8 +410,9 @@ void Acheter_produit(){
 
           printf("la Quantite precedent    : %d \n", produit[i].Quantite);
           produit[i].Quantite = produit[i].Quantite - quantite_ach;
-          time_t t = time(NULL);
           printf("la Quantite actuel est   : %d\n", produit[i].Quantite);
+          int t;
+          time(&t);
           strcpy(produit[i].date,ctime(&t));
           printf("le produit est achete le : %s",produit[i].date);
         
@@ -478,7 +480,7 @@ void Supprimer_produit_par_Code(){
         goto ther;
     }
      
-     printf("\n\n");
+     printf("\n");
 
      for (int i = 0; i < nbProduit; i++)
      {
@@ -487,14 +489,12 @@ void Supprimer_produit_par_Code(){
             for (int j = i; j < nbProduit - 1; j++)
             {
               produit[j]=produit[j+1];
-              nbProduit--;
-              // i--;
             }
-            
+            nbProduit--;
          } 
       }
-      printf("\n\n");
-      printf(" votre operation bien traiter.\n");
+      printf("\n");
+      printf("votre operation a ete bien traite.\n\n");
 
       return_or_exit();
 }
@@ -508,35 +508,27 @@ void Supprimer_produit_par_Code(){
 //------------------------------------- chech code ------------------------------------------
 
 int check_code(char x[10]){
-    int k=0;
   for (int i = 0; i < nbProduit; i++)
   {
     if (strcmp(produit[i].Code, x) == 0)
     {
-        k=1;
         return 1;
-    }
+    }else return 0;
   }
-  if(k==0){
-    return 0;
-  }
+
 }
 
 //---------------------------------- chech Quantite -----------------------------------------
 
 int check_Quantite(int x){
-    int k=0;
   for (int i = 0; i < nbProduit; i++)
   {
     if (produit[i].Quantite == x)
     {
-        k=1;
         return 1;
-    }
+    }else return 0;
   }
-  if(k==0){
-    return 0;
-  }
+  
 }
 
 //------------------------------------ AFFICHAGE --------------------------------------------
