@@ -11,7 +11,7 @@ struct Produit{
   char Code[20];
   int Quantite;
   float Prix;
-
+  char date[50];
 };
 
 //------------------------------- BASE DE DONNEES --------------------------------------
@@ -39,16 +39,16 @@ void Liste_par_prix();
 void affichage();
 void Etat_du_stock();
 void Alimenter_stock();
-int chech_code(char x[10]);
-int chech_Quantite(int x);
+int check_code(char x[10]);
+int check_Quantite(int x);
+void Supprimer_produit_par_Code();
 
 //-------------------------------- MAIN FUNCTION ---------------------------------------
 
 int main() {
 
   int choix;
-  do
-  {
+  
     system("cls");
     printf("\n---------------------Bonjour---------------------\n\n");
     ther:
@@ -84,7 +84,6 @@ int main() {
         goto ther;
         break;
     }
-  } while (choix < 1 || choix > 4 );
 
   return 0;
 }
@@ -97,7 +96,7 @@ void return_or_exit(){
 
   int choix;
 
-do {
+ do {
     ther:
     printf("\n-> Tapez 1 Pour retourner au menu principale");
     printf("\n-> Tapez 2 Pour quitter\n");
@@ -124,6 +123,7 @@ void AjouterUnProduit(){
   ther :
   printf("Entrez le Code     : ");
   scanf("%s", produit[nbProduit].Code);
+
   int x = check_code(produit[nbProduit].Code);
     if( x == 1){
         printf(" the product is already ther !\n");
@@ -208,6 +208,7 @@ void recherche_par_code(){
      scanf("%s", produit_code); 
      int x = check_code(produit_code);
     if( x == 0){
+      printf(" votre Code n'est existe pas, veuillez reessayer.\n");
         goto ther;
     }
      
@@ -217,7 +218,6 @@ void recherche_par_code(){
      {
          if (strcmp(produit[i].Code, produit_code) == 0)
          {
-            // printf(" produit N*%d \n", i + 1);
             printf("\n\n");
             printf("Code     : %s\n", produit[i].Code);
             printf("Nom      : %s\n", produit[i].Nom);
@@ -251,7 +251,6 @@ void recherche_par_quantite(){
      {
          if (produit[i].Quantite == produit_quantite)
          {
-            // printf(" produit N*%d \n", i + 1);
             printf("\n\n");
             printf("Code     : %s\n", produit[i].Code);
             printf("Nom      : %s\n", produit[i].Nom);
@@ -272,12 +271,13 @@ void Listetousproduits(){
   system("cls");
   printf("\n");
   printf("Liste tous les produits :\n");
+  ther :
   printf("\n\n");
   printf("[1] - Liste par Nom.\n");
   printf("[2] - Liste par Prix.\n");
   printf("Votre choix : ");
   scanf("%d", &ordrechoix);
-  // printf("ordre : %d", ordrechoix);
+  printf("\n\n");
 
   switch (ordrechoix)
   {
@@ -288,15 +288,13 @@ void Listetousproduits(){
     Liste_par_prix();
     break;
   default:
-    Listetousproduits();
-  }
-  // for (int i = 0; i < nbProduit; i++)
-  // {
-  //    float prix_TTC = (produit[i].Prix*0.15)+produit[i].Prix;
-
-  //    printf("\n--> Nom de Produit : %s.\n  - Prix      :  %.2f MAD.\n  - Prix TTC : %.2f MAD.\n\n",produit[i].Nom, produit[i].Prix, prix_TTC);
-  //    }
+    system("cls");
+    printf(" votre choix n'est pas valide, veuillez reessayer. \n\n");
+    sleep(2);
+      goto ther;
+    break;
     return_or_exit();
+}
 }
 
 //----------------------------- LISTE TOUS LES PRODUITS PAR NOM ----------------------------
@@ -390,8 +388,9 @@ void Acheter_produit(){
      ther:
      printf("Veuilez saisir le Code du produit : ");
      scanf("%s", produit_code);
-     int x = chech_code(produit_code);
+     int x = check_code(produit_code);
      if( x == 0){
+      printf(" votre Code n'est existe pas, veuillez reessayer.\n");
         goto ther;
      }
      printf("\n");
@@ -400,17 +399,20 @@ void Acheter_produit(){
      
      system("cls");
      printf("\n\n");
-     printf("--> Le Code du produit : %s\n", produit_code);
-     printf("--> vos Quantite est   : %d \n\n", quantite_ach);
+     printf("--> Le Code du produit   : %s\n", produit_code);
+     printf("--> vos Quantite est     : %d \n\n", quantite_ach);
 
      for (int i = 0; i < nbProduit; i++)
      {
          if (strcmp(produit[i].Code, produit_code) == 0)
          {
 
-          printf("la Quantite precedent  : %d \n", produit[i].Quantite);
+          printf("la Quantite precedent    : %d \n", produit[i].Quantite);
           produit[i].Quantite = produit[i].Quantite - quantite_ach;
-          printf("la Quantite actuel est : %d\n", produit[i].Quantite);
+          time_t t = time(NULL);
+          printf("la Quantite actuel est   : %d\n", produit[i].Quantite);
+          strcpy(produit[i].date,ctime(&t));
+          printf("le produit est achete le : %s",produit[i].date);
         
           } 
       }
@@ -430,8 +432,9 @@ void Alimenter_stock(){
      ther :
      printf("Veuilez saisir le Code du produit : ");
      scanf("%s", produit_code);
-     int x = chech_code(produit_code);
+     int x = check_code(produit_code);
      if( x == 0){
+      printf(" votre Code n'est existe pas, veuillez reessayer.\n");
         goto ther;
      }
      printf("\n");
@@ -461,9 +464,40 @@ void Alimenter_stock(){
 
 //--------------------------- Suprimmer un produit par code ---------------------------------
 
-//void Supprimer_produit_par_Code(){
+void Supprimer_produit_par_Code(){
+  char produit_code[10];
+    system("cls");
+    printf("Entrez le Code du produit Que vous voulez suprimer.t6");
+     printf("\n\n");
+     ther :
+     printf("Veuilez saisir le Code du produit : ");
+     scanf("%s", produit_code); 
+     int x = check_code(produit_code);
+    if( x == 0){
+      printf(" votre Code n'est existe pas, veuillez reessayer.\n");
+        goto ther;
+    }
+     
+     printf("\n\n");
 
-//}
+     for (int i = 0; i < nbProduit; i++)
+     {
+         if (strcmp(produit[i].Code, produit_code) == 0)
+         {
+            for (int j = i; j < nbProduit - 1; j++)
+            {
+              produit[j]=produit[j+1];
+              nbProduit--;
+              // i--;
+            }
+            
+         } 
+      }
+      printf("\n\n");
+      printf(" votre operation bien traiter.\n");
+
+      return_or_exit();
+}
 
 //-------------------------------- Statistique_de_vente -------------------------------------
 
@@ -482,7 +516,6 @@ int check_code(char x[10]){
         k=1;
         return 1;
     }
-    
   }
   if(k==0){
     return 0;
@@ -500,7 +533,6 @@ int check_Quantite(int x){
         k=1;
         return 1;
     }
-    
   }
   if(k==0){
     return 0;
@@ -516,16 +548,16 @@ void affichage(){
   printf("\n");
   printf("List des produits par ordre :\n");
   printf("\n\n");
+  ther :
   printf("[1] - recherche par Code.\n");
   printf("[2] - recherche par Quantite.\n");
   printf("[3] - Liste tous les produits.\n");
   printf("[4] - Etat du stock.\n");
   printf("[5] - Alimenter le stock.\n");
-  // printf("[6] - Suprimmer un produit par code.\n\n");
-  // printf("[7] - Statistique de vente.\n\n");
+  printf("[6] - Suprimmer un produit par code.\n");
+  printf("[7] - returne ou menu principale.\n\n");
   printf("Votre choix : ");
   scanf("%d", &ordrechoix);
-  // printf("ordre : %d", ordrechoix);
 
   switch (ordrechoix)
   {
@@ -544,13 +576,17 @@ void affichage(){
   case 5:
     Alimenter_stock();
     break;
-  // case 6:
-  //   Supprimer_produit_par_Code();
-  //   break;
-  // case 7:
-  //   Statistique_de_vente();
-  //   break;
+  case 6:
+    Supprimer_produit_par_Code();
+    break;
+  case 7:
+    main();
+    break;
   default:
-    affichage();
+    system("cls");
+    printf(" votre choix n'est pas valide, veuillez reessayer. \n\n");
+    sleep(2);
+    goto ther;
+       break;
   }
 }
