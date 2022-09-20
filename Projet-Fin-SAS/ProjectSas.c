@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <string.h>
+#include <time.h>
 
 //--------------------------- CREATION DE LA STRUCTURE --------------------------------
 
@@ -25,7 +25,7 @@ struct Produit{
 
  int nbProduit = 4;
 
-//--------------------------- DECLARATION DES FONCTIONS --------------------------------
+//--------------------------- DECLARATION DE FONCTIONS --------------------------------
 
 void AjouterUnProduit();
 void AjouterPlusieursProduit();
@@ -469,7 +469,7 @@ void Alimenter_stock(){
 void Supprimer_produit_par_Code(){
   char produit_code[10];
     system("cls");
-    printf("Entrez le Code du produit Que vous voulez suprimer.t6");
+    printf("Entrez le Code du produit Que vous voulez suprimer.");
      printf("\n\n");
      ther :
      printf("Veuilez saisir le Code du produit : ");
@@ -486,7 +486,7 @@ void Supprimer_produit_par_Code(){
      {
          if (strcmp(produit[i].Code, produit_code) == 0)
          {
-            for (int j = i; j < nbProduit - 1; j++)
+            for (int j = i; j < nbProduit; j++)
             {
               produit[j]=produit[j+1];
             }
@@ -499,34 +499,39 @@ void Supprimer_produit_par_Code(){
       return_or_exit();
 }
 
-//-------------------------------- Statistique_de_vente -------------------------------------
-
-//void Statistique_de_vente(){
-
-//}
-
 //------------------------------------- chech code ------------------------------------------
 
 int check_code(char x[10]){
+  int k = 0;
   for (int i = 0; i < nbProduit; i++)
   {
     if (strcmp(produit[i].Code, x) == 0)
     {
+      k=1;
         return 1;
-    }else return 0;
-  }
-
+    }
+    if (k == 0)
+    {
+     return 0;
+    }
+}
 }
 
 //---------------------------------- chech Quantite -----------------------------------------
 
 int check_Quantite(int x){
+  int k=0;
   for (int i = 0; i < nbProduit; i++)
   {
     if (produit[i].Quantite == x)
     {
+      k=1;
         return 1;
-    }else return 0;
+    }
+    if (k == 0)
+    {
+     return 0;
+    }
   }
   
 }
