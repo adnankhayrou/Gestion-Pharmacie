@@ -41,6 +41,7 @@ void affichage();
 void Etat_du_stock();
 void Alimenter_stock();
 bool check_code(char x[10]);
+bool check_Quantite_n(int y);
 bool check_Quantite(int x);
 void Supprimer_produit_par_Code();
 
@@ -124,9 +125,13 @@ void AjouterUnProduit(){
 
   printf("Entrez le Nom      : ");
   scanf("%s", &produit[nbProduit].Nom);
-
+  ther :
   printf("Entrez la Quantite : ");
   scanf("%d", &produit[nbProduit].Quantite);
+  if( check_Quantite_n(produit[nbProduit].Quantite) == true){
+        printf(" la Quantite est-- , veuillez reessayer.\n");
+        goto ther;
+     }
 
   printf("Entrez le Prix     : ");
   scanf("%f", &produit[nbProduit].Prix);
@@ -165,9 +170,13 @@ void AjouterPlusieursProduit(){
 
     printf("Entrez le Nom      : ");
     scanf("%s", &produit[nbProduit].Nom);
-
+    ther :
     printf("Entrez la Quantite : ");
     scanf("%d", &produit[nbProduit].Quantite);
+    if( check_Quantite_n(produit[nbProduit].Quantite) == true){
+        printf(" la Quantite est-- , veuillez reessayer.\n");
+        goto ther;
+     }
 
     printf("Entrez le Prix     : ");
     scanf("%f", &produit[nbProduit].Prix);
@@ -504,14 +513,22 @@ bool check_code(char x[10]){
 bool check_Quantite(int x){
   for (int i = 0; i < nbProduit; i++)
   {
-    if (produit[i].Quantite < x)
+    if (produit[i].Quantite != x)
     {
         return true;
     }else return false;
     
   }
-  
 }
+
+bool check_Quantite_n(int y){
+  
+    if (y <= 0)
+    {
+        return true;
+    }else return false;
+    
+  }
 
 //------------------------------------ AFFICHAGE --------------------------------------------
 
