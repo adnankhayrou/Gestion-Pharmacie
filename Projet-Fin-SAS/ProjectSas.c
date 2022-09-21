@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <time.h>
+#include <string.h>
 
 //--------------------------- CREATION DE LA STRUCTURE --------------------------------
 
@@ -14,7 +14,7 @@ struct Produit{
   char date[50];
 };
 
-//------------------------------- BASE DE DONNEES --------------------------------------
+//------------------------------- DES DONNEES POUR TEST --------------------------------------
 
  struct Produit produit[100]={
   {"dolipran", "g1", 56, 15},
@@ -25,7 +25,7 @@ struct Produit{
 
  int nbProduit = 4;
 
-//--------------------------- DECLARATION DE FONCTIONS --------------------------------
+//--------------------------- DECLARATION DES FONCTIONS --------------------------------
 
 void AjouterUnProduit();
 void AjouterPlusieursProduit();
@@ -97,7 +97,6 @@ void return_or_exit(){
   int choix;
 
    do {
-    // ther:
     printf("\n-> Tapez 1 Pour retourner au menu principale");
     printf("\n-> Tapez 2 Pour quitter\n");
     printf("\n=====>Votre choix : ");
@@ -107,10 +106,8 @@ void return_or_exit(){
         case 1 : main(); break;
         case 2 : exit(0); break;
         default : printf(" votre choix n'est pas valide. veuillez reessayer. \n");
-        // goto ther;
     }
     } while (choix < 1 || choix > 2 );
-
 }
 
 //----------------------------- Ajouter Un Produit ------------------------------------
@@ -242,7 +239,7 @@ void recherche_par_quantite(){
      printf("Veuilez saisir le quantite du produit : ");
      scanf("%d", &produit_quantite);
      int x = check_Quantite(produit_quantite);
-     if( x == 0){
+     if( x == 1){
         printf(" la Quantite que vous avez entree n'est existe pas, veuillez reessayer.\n");
         goto ther;
      }
@@ -390,7 +387,7 @@ void Acheter_produit(){
      printf("Veuilez saisir le Code du produit : ");
      scanf("%s", produit_code);
      int x = check_code(produit_code);
-     if( x == 0){
+     if( x == 1){
       printf(" votre Code n'est existe pas, veuillez reessayer.\n");
         goto ther;
      }
@@ -435,7 +432,7 @@ void Alimenter_stock(){
      printf("Veuilez saisir le Code du produit : ");
      scanf("%s", produit_code);
      int x = check_code(produit_code);
-     if( x == 0){
+     if( x == 1){
       printf(" votre Code n'est existe pas, veuillez reessayer.\n");
         goto ther;
      }
@@ -469,13 +466,13 @@ void Alimenter_stock(){
 void Supprimer_produit_par_Code(){
   char produit_code[10];
     system("cls");
-    printf("Entrez le Code du produit Que vous voulez suprimer.");
+    printf("Entrez le Code du produit Que vous voulez suprimer.t6");
      printf("\n\n");
      ther :
      printf("Veuilez saisir le Code du produit : ");
      scanf("%s", produit_code); 
      int x = check_code(produit_code);
-    if( x == 0){
+    if( x == 1){
       printf(" votre Code n'est existe pas, veuillez reessayer.\n");
         goto ther;
     }
@@ -486,7 +483,7 @@ void Supprimer_produit_par_Code(){
      {
          if (strcmp(produit[i].Code, produit_code) == 0)
          {
-            for (int j = i; j < nbProduit; j++)
+            for (int j = i; j < nbProduit ; j++)
             {
               produit[j]=produit[j+1];
             }
@@ -523,7 +520,7 @@ int check_Quantite(int x){
   int k=0;
   for (int i = 0; i < nbProduit; i++)
   {
-    if (produit[i].Quantite == x)
+    if (produit[i].Quantite < x)
     {
       k=1;
         return 1;
