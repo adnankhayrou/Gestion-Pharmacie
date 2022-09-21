@@ -119,7 +119,7 @@ void AjouterUnProduit(){
   printf("Donnez les informations du produit %d.\n\n", nbProduit + 1);
   ther :
   printf("Entrez le Code     : ");
-  scanf("%s", produit[nbProduit].Code);
+  scanf("%s", &produit[nbProduit].Code);
 
   int x = check_code(produit[nbProduit].Code);
     if( x == 1){
@@ -128,7 +128,7 @@ void AjouterUnProduit(){
     }
 
   printf("Entrez le Nom      : ");
-  scanf("%s", produit[nbProduit].Nom);
+  scanf("%s", &produit[nbProduit].Nom);
 
   printf("Entrez la Quantite : ");
   scanf("%d", &produit[nbProduit].Quantite);
@@ -166,11 +166,11 @@ void AjouterPlusieursProduit(){
     printf("\n------- Ajouter le nouveau produit %d, (Code, Nom, Quantite et le Prix.) -------\n\n", i+1);
 
     printf("Entrez le Code     : ");
-    scanf("%s", produit[nbProduit].Code);
+    scanf("%s", &produit[nbProduit].Code);
     
 
     printf("Entrez le Nom      : ");
-    scanf("%s", produit[nbProduit].Nom);
+    scanf("%s", &produit[nbProduit].Nom);
 
     printf("Entrez la Quantite : ");
     scanf("%d", &produit[nbProduit].Quantite);
@@ -202,7 +202,7 @@ void recherche_par_code(){
      printf("\n\n");
      ther :
      printf("Veuilez saisir le Code du produit : ");
-     scanf("%s", produit_code); 
+     scanf("%s", &produit_code); 
      int x = check_code(produit_code);
     if( x == 0){
       printf(" votre Code n'est existe pas, veuillez reessayer.\n");
@@ -385,7 +385,7 @@ void Acheter_produit(){
      printf("\n\n");
      ther:
      printf("Veuilez saisir le Code du produit : ");
-     scanf("%s", produit_code);
+     scanf("%s", &produit_code);
      int x = check_code(produit_code);
      if( x == 1){
       printf(" votre Code n'est existe pas, veuillez reessayer.\n");
@@ -430,7 +430,7 @@ void Alimenter_stock(){
      printf("\n\n");
      ther :
      printf("Veuilez saisir le Code du produit : ");
-     scanf("%s", produit_code);
+     scanf("%s", &produit_code);
      int x = check_code(produit_code);
      if( x == 1){
       printf(" votre Code n'est existe pas, veuillez reessayer.\n");
@@ -470,7 +470,7 @@ void Supprimer_produit_par_Code(){
      printf("\n\n");
      ther :
      printf("Veuilez saisir le Code du produit : ");
-     scanf("%s", produit_code); 
+     scanf("%s", &produit_code); 
      int x = check_code(produit_code);
     if( x == 1){
       printf(" votre Code n'est existe pas, veuillez reessayer.\n");
