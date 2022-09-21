@@ -299,7 +299,7 @@ void Liste_par_nom(){
  {
   for (int j = r + 1; j < nbProduit; j++)
   {
-    if (strcmp(produit[r].Nom,  produit[j].Nom) > 0)
+    if (strcasecmp(produit[r].Nom,  produit[j].Nom) > 0)
     {
       pswap = produit[r];
       produit[r] = produit[j];
