@@ -119,10 +119,15 @@ void AjouterUnProduit(){
   system("cls");
   printf("\n------- Ajouter un nouveau produit (Code, Nom, Quantite et le Prix.) -------\n\n");
   printf("Donnez les informations du produit %d.\n\n", nbProduit + 1);
-
+  ther2 :
   printf("Entrez le Code     : ");
   scanf("%s", &produit[nbProduit].Code);
-
+  if (check_code(produit[nbProduit].Code))
+  {
+    printf("the code is already ther!");
+     goto ther2;
+  }
+  
   printf("Entrez le Nom      : ");
   scanf("%s", &produit[nbProduit].Nom);
   ther :
